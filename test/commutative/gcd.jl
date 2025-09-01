@@ -311,4 +311,13 @@ end
         g = @inferred gcd(p1, p2)
         @test isequal(p1, g) || isequal(p2, g)
     end
+
+    @testset "edge case with `isolate_variable`" begin
+        Mod.@polyvar q r s
+        poly = MP.polynomial(q + r + s, Number)
+        poly.a[1] = NaN
+        poly.a[2] = 1.4 + 5.6im
+        poly.a[3] = 4//11
+        @test_nowarn MP.isolate_variable(poly, q, MA.IsNotMutable())
+    end
 end

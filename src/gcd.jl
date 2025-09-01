@@ -511,7 +511,7 @@ function isolate_variable(
             j += 1
         end
         coef = _polynomial(
-            [subs(old_terms[k], (var,) => (1,)) for k in i:(j-1)],
+            term_type(poly)[subs(old_terms[k], (var,) => (1,)) for k in i:(j-1)],
             SortedUniqState(),
             mutability,
         )
